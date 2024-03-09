@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
   tasks:
-  - name: General packages are installed
+  - name: Cai dat cac goi co ban
     apt:
       name: "{{ packages }}"
       state: present
