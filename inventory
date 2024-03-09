@@ -1,0 +1,12 @@
+[u22congtt]
+10.10.100.177
+10.10.100.178
+
+[u20congtt]
+#Graylog
+10.10.100.173
+
+[other]
+# Netbox
+#10.10.100.166
+htv-netbox ansible_host="10.10.100.166" ansible_user=ubuntu
