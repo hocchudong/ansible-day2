@@ -1,0 +1,37 @@
+---
+- name: Install rsyslog
+  hosts: 10.10.100.177
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: General packages are installed
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+      - tar
+      - wget
+      - unzip
+      - rsyslog
+
+  - name: create a jinja2 template
+    template:
+      src:  templates/remote.conf.j2
+      dest: /etc/rsyslog.d/graylog.conf
+      mode: '644'
+      owner: root
+      group: root
+      
+  - name: config rsyslog for cmdlog 
+    template:
+      src:  templates/rsyslog-ubuntu.conf.j2
+      dest: /etc/rsyslog.conf
+      mode: '644'
+      owner: root
+      group: root
+      
+  - name: restart the rsyslog service on remote nodes
+    service:
+      name: rsyslog
+      state: restarted
