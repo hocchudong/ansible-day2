@@ -1,6 +1,6 @@
 ---
-- name: Install rsyslog
-  hosts: 10.10.100.177
+- name: Config rsyslog for graylog
+  hosts: all
   become: yes
   become_method: sudo
   tasks:
