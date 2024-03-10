@@ -23,13 +23,13 @@
       owner: root
       group: root
       
-  - name: Khai bao file rsyslog 
-    template:
-      src:  templates/rsyslog-ubuntu.conf.j2
-      dest: /etc/rsyslog.conf
-      mode: '644'
-      owner: root
-      group: root
+  # - name: Khai bao file rsyslog 
+    # template:
+      # src:  templates/rsyslog-ubuntu.conf.j2
+      # dest: /etc/rsyslog.conf
+      # mode: '644'
+      # owner: root
+      # group: root
       
   - name: restart the rsyslog service on remote nodes
     service:

@@ -6,11 +6,7 @@
   tasks:
   - name: in ra bien
     debug:
-      msg: "{{ ansible_hostname }}"
-    
-  - name: in ra bien IP
-    debug: 
-      msg: "{{ansible_default_ipv4.address}}"
+      msg: "{{ ansible_hostname }} va {{ansible_default_ipv4.address}}"
 
   - name: Khai bao file host 
     template:
@@ -21,3 +17,7 @@
     service:
       name: rsyslog
       state: restarted
+      
+  - name: Cau hinh timezone Asia/Ho_Chi_Minh
+    community.general.timezone:
+      name: Asia/Ho_Chi_Minh
