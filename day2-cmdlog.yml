@@ -1,0 +1,25 @@
+---
+- name: Cac cau hinh hoan thien may chu
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: in ra bien
+    debug:
+      msg: "{{ ansible_hostname }} va {{ansible_default_ipv4.address}}"
+
+  - name: Khai bao file host 
+    template:
+      src:  templates/hosts.j2
+      dest: /etc/hosts
+      
+  - name: Cau hinh ghi log cac cau lenh vao local6.
+    shell: |
+      echo "#Command log'" >> ~/.bashrc
+      echo "export PROMPT_COMMAND='RETRN_VAL=\$?;logger -p local6.debug \"[cmdlog] \$(whoami) [\$\$]: \$(history 1 | sed \"s/^[ ]*[0-9]\+[ ]*//\" ) [\$RETRN_VAL] [\$(echo \$SSH_CLIENT | cut -d\" \" -f1)]\"'" >> ~/.bashrc
+      echo "local6.* /var/log/cmdlog.log" >> /etc/rsyslog.conf
+
+  - name: restart the rsyslog service on remote nodes
+    service:
+      name: rsyslog
+      state: restarted
